@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>LocalStorage Phonegap</title>
+</head>
+<body>
+
+<form>
+    <label for="nome">Nome</label><br>
+    <input id="nome" type="text" placeholder="Digite seu nome aqui" required><br>
+
+    <label for="telefone">Telefone</label><br>
+    <input id="telefone" type="text" placeholder="Digite seu telefone aqui" required><br>
+
+    <label for="email">Email</label><br>
+    <input id="email" type="text" placeholder="Digite seu email aqui" required><br>
+
+    <button id="btnsave" type="button">Save</button><br>
+    <button id="btnget" type="button">Get</button><br>
+    <button id="btnclear" type="button">Clear</button><br>
+</form>
+
+<script type="text/javascript" src="cordova.js"></script>
+
+<script type="text/javascript">
+    var app = {
+        initialize: function () {
+            document.addEventListener('deviceready', this.onDeviceReady, false);
+        },
+        save: function (evt) {
+            evt.preventDefault();
+            var nome = document.getElementById("nome").value;
+            var telefone = document.getElementById("telefone").value;
+            var email = document.getElementById("email").value;
+
+            window.localStorage.setItem("nome", nome);
+            window.localStorage.setItem("telefone", telefone);
+            window.localStorage.setItem("email", email);
+
+            alert("Dados salvos com sucesso");
+        },
+        get: function (evt) {
+            evt.preventDefault();
+            var nome = window.localStorage.getItem("nome");
+            var telefone = window.localStorage.getItem("telefone");
+            var email = window.localStorage.getItem("email");
+
+            document.getElementById("nome").value = nome;
+            document.getElementById("telefone").value = telefone;
+            document.getElementById("email").value = email;
+        },
+        clear: function (evt) {
+            evt.preventDefault();
+            window.localStorage.clear();
+            document.getElementById("nome").value = "";
+            document.getElementById("telefone").value = "";
+            document.getElementById("email").value = "";
+        },
+        onDeviceReady: function () {
+            document.getElementById('btnsave').addEventListener('click', app.save);
+            document.getElementById('btnget').addEventListener('click', app.get);
+            document.getElementById('btnclear').addEventListener('click', app.clear);
+        }
+    };
+    
+    app.initialize();
+</script>
+
+</body>
+</html>
